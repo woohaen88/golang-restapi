@@ -3,10 +3,12 @@ package main
 import (
 	"fmt"
 	"github.com/gofiber/fiber/v2"
+	"github.com/woohaen88/database"
 	"log"
 )
 
 func main() {
+	database.ConnectDB()
 	app := fiber.New()
 
 	app.Get("/", HelloWorld)
