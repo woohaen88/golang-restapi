@@ -24,9 +24,21 @@ func HelloWorld(ctx *fiber.Ctx) error {
 
 func setupRoutes(app *fiber.App) {
 	app.Get("/api", HelloWorld)
-	app.Post("/api/users", routes.CreateUser)
-	app.Get("/api/users", routes.GetUsers)
-	app.Get("/api/users/:id", routes.GetUser)
-	app.Put("/api/users/:id", routes.UpdateUser)
-	app.Delete("/api/users/:id", routes.DeleteUser)
+
+	// user endpoint
+	userRoute := app.Group("/api/user")
+	userRoute.Post("/", routes.CreateUser)
+	userRoute.Get("/", routes.GetUsers)
+	userRoute.Get("/:id", routes.GetUser)
+	userRoute.Put("/:id", routes.UpdateUser)
+	userRoute.Delete(":id", routes.DeleteUser)
+
+	// product endpoint
+	productRoute := app.Group("/api/product")
+	productRoute.Get("/", routes.GetProducts)
+	productRoute.Post("/", routes.CreateProduct)
+	productRoute.Get("/:id", routes.GetProduct)
+	productRoute.Put("/:id", routes.PutProduct)
+	productRoute.Delete("/:id", routes.DeleteProduct)
+
 }
